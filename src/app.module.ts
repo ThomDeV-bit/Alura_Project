@@ -1,24 +1,18 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './user/user.module';
+// import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostgresConfigService } from './config/database.config.ts/postgres.config';
+import { DatabaseConfigModule } from './config/databse.module'
 import { ConfigModule } from '@nestjs/config'
+import { UserModule } from './user/user.module';
+import { UserRepository } from './user/repository/user.repository';
 
 
 @Module({
-  imports: [
-    UserModule,
-    ProductModule,
-    ConfigModule.forRoot({
-      isGlobal: true
-    }),
-    TypeOrmModule.forRootAsync({
-      useClass: PostgresConfigService,
-      inject: [PostgresConfigService]
-    })
-    ],
+  imports: [DatabaseConfigModule],
   controllers: [],
-  providers: [],
+  providers:[DatabaseConfigModule],
+  exports : []
+  
 })
 export class AppModule { }
