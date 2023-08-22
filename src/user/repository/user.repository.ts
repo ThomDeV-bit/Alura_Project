@@ -1,12 +1,13 @@
 import { DataSource, Repository, TypedEventEmitter } from "typeorm";
-import { UserEntity } from "../entity/user.entity";
+import { UserEntity } from "../../database/entites/user.entity";
 import { Injectable } from "@nestjs/common";
 
 
 
 @Injectable()
-export class UserRepository extends Repository <UserEntity>{
-    constructor(public  dataSource : DataSource){
+export class UserRepository extends Repository<UserEntity>{
+    constructor(
+    public dataSource: DataSource) {
         super(UserEntity, dataSource.createEntityManager());
-}
+    }
 }
