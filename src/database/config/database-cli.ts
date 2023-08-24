@@ -1,25 +1,20 @@
-import { TypeOrmDataSourceFactory, getDataSourceToken } from "@nestjs/typeorm";
-import { DataSource, DataSourceOptions } from "typeorm";
-import { Migration1692653037030 } from "../migration/1692653037030-migration";
+import { DataSource, DataSourceOptions } from 'typeorm';
 
-
-
-
+import { OrderEntity } from '../../database/entites/order.entity';
+import { UserEntity } from '../entites/user.entity';
+import { CreateTables1692904564459 } from '../migration/1692904564459-create-tables';
 
 const dataSourceOptions: DataSourceOptions = {
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'root123',
-    database: 'loja',
-    entities: [__dirname + './entites/*.{ts,js}'],
-    migrations : [Migration1692653037030],
+  type: 'mysql',
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: 'root123',
+  database: 'loja',
+  entities: [UserEntity, OrderEntity],
+  migrations: [CreateTables1692904564459],
+};
 
-    
-}
-
-
-const dataSource = new DataSource(dataSourceOptions)
+const dataSource = new DataSource(dataSourceOptions);
 
 export default dataSource;
