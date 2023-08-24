@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Expose, Type } from "class-transformer";
 import { IsNotEmpty, IsString, IsInt, Min, IsPositive } from "class-validator";
-import { CharacteristicsProductsDTO } from '../characteristics-product/dto/characteristics-products.dto';
-import { ImageProdutoDTO } from "../image-product/dto/image-product.dto";
+import { CharacteristicsProductsDTO } from '../product-characteristics/products-characteristics.dto'
+import { ImageProdutoDTO } from "../product-image/product-image.dto"
 
 
 
@@ -29,11 +29,6 @@ export class CriaProdutoDTO {
     @Min(1)
     quantidade: number;
 
-
-
-    @ApiProperty({ name: "descriçao do Produto" })
-    @Expose({ name: "descriçaoProduto" })
-    descricao: string;
 
 
     @ApiProperty({ name: "caracteristicas do Produto" })
