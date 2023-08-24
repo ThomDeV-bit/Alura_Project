@@ -7,8 +7,8 @@ import {
 @Entity("product_characteristics")
 export class ProductCharacteristicsEntity {
 
-    @PrimaryGeneratedColumn('increment')
-    id: number
+    @PrimaryGeneratedColumn('uuid')
+    id: string
 
     @Column({ name: "nome", length: 100, nullable: false })
     nome: string;
