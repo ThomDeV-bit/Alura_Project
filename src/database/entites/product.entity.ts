@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { CategoriesDTO } from "src/product/product-categories/product-categories.dto";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity({ name: 'product'})
@@ -17,11 +18,5 @@ export class ProductEntity {
 
     @Column({ name: 'quantidade', nullable: false })
     quantidade: number;
-
-    @Column({ name: 'descricao', length: 255, nullable: false })
-    descricao: string;
-
-    @Column({ name: 'categoria', length: 100, nullable: false })
-    categoria: string;
 
 }

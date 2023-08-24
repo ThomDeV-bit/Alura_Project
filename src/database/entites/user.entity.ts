@@ -1,23 +1,37 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn, Timestamp } from "typeorm"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Timestamp,
+} from 'typeorm';
+import { OrderEntity } from './order.entity';
 
-@Entity({name : 'users'})
-
+@Entity({ name: 'users' })
 export class UserEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
+  @Column()
+  name: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @Column()
+  mail: string;
 
-    @Column()
-    name: string
+  @Column()
+  password: string;
 
-    @Column()
-    mail: string
+  @CreateDateColumn()
+  created_at: Timestamp;
 
-    @Column()
-    password: string
+  @CreateDateColumn()
+  updated_at: Timestamp;
 
-    @Column()
-    created_at : Timestamp
-    
+  @OneToMany(() => OrderEntity, (pedido) => pedido.usuario)
+  pedidos: OrderEntity[];
+}
+
+export interface IUserRepoisotry {
+  search(): Promise<UserEntity[]>;
 }
