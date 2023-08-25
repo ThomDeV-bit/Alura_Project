@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Inject, Injectable, UseInterceptors } from '@nestjs/common';
-import {  } from 'src/common/baseResponse/globlaSearchResponse';
+import {  } from 'src/common/baseResponse/globalResponse';
 import { UserRepository } from 'src/repositoris/user.repository';
 
 

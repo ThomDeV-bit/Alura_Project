@@ -1,40 +1,53 @@
 /* eslint-disable prettier/prettier */
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
+
+import { CallHandler, ExecutionContext, NestInterceptor } from "@nestjs/common";
 import { Observable, map } from "rxjs";
-import { Response } from 'express';
+import  {Response} from 'express'
 
 
+export interface IGlobalResponse<T> {
 
-
-export interface BaseResponse<T> {
-
-    STATUS: string
     MENSAGEM: string
+    STATUS: string
     RESPOSTA: T[]
-
 
 }
 
-@Injectable()
 
+export class GlobalResponse<T> implements NestInterceptor<T, IGlobalResponse<T>> {
+    intercept(context: ExecutionContext, next: CallHandler): Observable<IGlobalResponse<T>> {
+        const hhtpContext = context.switchToHttp();
+        const response = hhtpContext.getResponse<Response>();
+        const STATUS = response.statusCode >= 200 && response.statusCode <= 299
+            ? 'SUCESSO'
+            : 'ERRO';
+        let MENSAGEM = response.req.method;
+        switch (MENSAGEM) {
+            case "GET": MENSAGEM = 'Consulta realizada com sucesso';
 
-export class GlobalResponse<T> implements NestInterceptor<T, BaseResponse<T>> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    intercept(context: ExecutionContext, next: CallHandler): Observable<BaseResponse<T>> {
+                break;
+            case "POST": MENSAGEM = 'Executado com sucesso';
 
-        const hhtpContext = context.switchToHttp()
-        const response = hhtpContext.getResponse<Response>()
+                break;
+            case "DELETE": MENSAGEM = 'Deletado com sucesso';
 
-        return next.handle().pipe(map(responseBody => ({
-            STATUS: String(
+                break;
+            case "PUT": MENSAGEM = 'Alteração realizada com sucesso';
 
-                response.statusCode >= 200 && response.statusCode <= 299
-                    ? response.statusCode
-                    : 'ERRO'
-            ),
-            MENSAGEM: 'Consulta criada com sucesso',
-            RESPOSTA: Array.isArray(responseBody) ? responseBody : [responseBody]
-        }))
-        )
+                break;
+
+            default: 'Nenhuma requisição realizada';
+                break;
+        }
+
+        return next.handle().pipe(
+            map(responseBody => ({
+                STATUS,
+                MENSAGEM,
+                RESPOSTA: Array.isArray(responseBody) ? responseBody : [responseBody]
+            })
+            ));
     }
 }
