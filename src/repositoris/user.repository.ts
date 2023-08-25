@@ -13,9 +13,13 @@ export class UserRepository implements IUserRepoisotry {
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>,
     ) { }
+
+
     search(): Promise<UserEntity[]> {
         return  this.userRepository.find()
     }
+
+
     execute(dto: UserDto) {
         const user =  this.userRepository.create(dto)
         return this.userRepository.save(user)
