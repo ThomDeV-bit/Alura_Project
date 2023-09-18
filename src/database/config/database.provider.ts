@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-
-import { OrderEntity } from '../entites/order.entity';
 import { UserEntity } from '../entites/user.entity';
 import { CreateTables1692904564459 } from '../migration/1692904564459-create-tables';
 
@@ -15,7 +13,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       username: 'root',
       password: 'root123',
       database: 'loja',
-      entities: [UserEntity, OrderEntity],
+      entities: [UserEntity],
       migrations: [CreateTables1692904564459],
     };
   }

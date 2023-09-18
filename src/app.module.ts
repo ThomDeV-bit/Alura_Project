@@ -1,26 +1,25 @@
-/* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common';
-// import { UserModule } from './user/user.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DatabaseConfig } from './database/config/database.provider';
-import { OrderModule } from './order/order.module';
-import { UsersModule } from './users/users.module';
+import { DynamicModule, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeormModule } from './database/repositoris/typeorm.module';
+import { RepositoryModule } from './database/repositoris/repository.module';
+import { ApiModule } from './api/api.module';
+import { UseCasesModule } from './use-cases/use-cases.module';
 
-
-
-
-@Module({
-
-  imports: [
-    TypeOrmModule.forRootAsync({
-      useClass: DatabaseConfig,
-      inject: [DatabaseConfig]
-    }), UsersModule, OrderModule, UsersModule],
-
-  providers: [],
-    
-  exports: []
-
-
-})
-export class AppModule { }
+@Module({})
+export class AppModule {
+  static register(): DynamicModule {
+    const imports = [
+      ConfigModule.forRoot({
+        isGlobal: true,
+      }),
+      TypeormModule.register(RepositoryModule.register()),
+      ApiModule.register({
+        useCasesModule: UseCasesModule.register(),
+      }),
+    ];
+    return {
+      module: AppModule,
+      imports,
+    };
+  }
+}

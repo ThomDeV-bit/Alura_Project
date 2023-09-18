@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Inject, Injectable, UseInterceptors } from '@nestjs/common';
 import {  } from 'src/common/baseResponse/globalResponse';
-import { UserRepository } from 'src/repositoris/user.repository';
+import { TYPEORM_TOKENS } from 'src/database/repositoris/tokens';
+import { UserRepository } from 'src/database/repositoris/users/user.repository';
 
 
 
@@ -9,7 +10,8 @@ import { UserRepository } from 'src/repositoris/user.repository';
 @Injectable()
 export class SearchUserService {
   constructor(
-    @Inject(UserRepository) private readonly userRepository: UserRepository,
+    @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
+     private readonly userRepository: UserRepository,
   ) { }
 
   async searchUser() {
