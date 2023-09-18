@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Inject, Injectable, UseInterceptors } from '@nestjs/common';
-import { UserRepository } from 'src/repositoris/user.repository';
-import { UserDto } from '../dto/create-user.dto';
+import { TYPEORM_TOKENS } from 'src/database/repositoris/tokens';
+import { UserRepository } from 'src/database/repositoris/users/user.repository';
+import { UserDto } from 'src/domain/users/dto/create-user.dto';
 
 
 
@@ -10,7 +11,8 @@ import { UserDto } from '../dto/create-user.dto';
 @Injectable()
 export class CreateUsersService {
     constructor(
-        @Inject(UserRepository) private readonly userRepository: UserRepository,
+     @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
+      private readonly userRepository: UserRepository,
     ) { }
 
     async createUser(dto: UserDto) {

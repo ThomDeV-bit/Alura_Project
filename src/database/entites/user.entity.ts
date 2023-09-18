@@ -1,37 +1,33 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Timestamp,
-} from 'typeorm';
-import { OrderEntity } from './order.entity';
-
-@Entity({ name: 'users' })
-export class UserEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  name: string;
-
-  @Column()
-  mail: string;
-
-  @Column()
-  password: string;
-
-  @CreateDateColumn()
-  created_at: Timestamp;
-
-  @CreateDateColumn()
-  updated_at: Timestamp;
-
-  @OneToMany(() => OrderEntity, (pedido) => pedido.usuario)
-  pedidos: OrderEntity[];
-}
+import { IUser } from 'src/domain/users/user.domain';
+import { EntitySchema } from 'typeorm';
+export const UserEntity = new EntitySchema<IUser>({
+  name: 'users',
+  tableName: 'users',
+  columns: {
+    id: {
+      name: 'id',
+      type: 'varchar',
+      primary: true,
+      nullable: false,
+    },
+    name: {
+      name: 'name',
+      type: 'varchar',
+      nullable: false,
+    },
+    mail: {
+      name: 'mail',
+      type: 'varchar',
+      nullable: false,
+    },
+    password: {
+      name: 'password',
+      type: 'varchar',
+      nullable: false,
+    },
+  },
+});
 
 export interface IUserRepoisotry {
-  search(): Promise<UserEntity[]>;
+  search(): Promise<IUser[]>;
 }

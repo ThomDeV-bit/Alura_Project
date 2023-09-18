@@ -1,22 +1,19 @@
-import { CategoriesDTO } from "src/product/product-categories/product-categories.dto";
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-
-@Entity({ name: 'product'})
+@Entity({ name: 'product' })
 export class ProductEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column({ name: 'usuario_id', length: 100, nullable: false })
-    usuarioId: string;
+  @Column({ name: 'usuario_id', length: 100, nullable: false })
+  usuarioId: string;
 
-    @Column({ name: 'nome', length: 100, nullable: false })
-    nome: string;
+  @Column({ name: 'nome', length: 100, nullable: false })
+  nome: string;
 
-    @Column({ name: 'valor', nullable: false })
-    valor: number;
+  @Column({ name: 'valor', nullable: false })
+  valor: number;
 
-    @Column({ name: 'quantidade', nullable: false })
-    quantidade: number;
-
+  @Column({ name: 'quantidade', nullable: false })
+  quantidade: number;
 }

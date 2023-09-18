@@ -10,17 +10,17 @@ export class UserDto {
     id?: string
 
 
-    @ApiProperty({ name: 'nome do usuario' })
+    @ApiProperty({ name: 'nome' })
     @Expose({ name: 'nome' })
     @IsString()
     name: string;
 
-    @ApiProperty({ name: 'email do usuario' })
+    @ApiProperty({ name: 'email' })
     @Expose({ name: 'email' })
     @IsEmail()
     mail: string;
 
-    @ApiProperty({ name: 'senha do usuario' })
+    @ApiProperty({ name: 'senha' })
     @Expose({ name: 'senha' })
     @IsString()
     password: string;
