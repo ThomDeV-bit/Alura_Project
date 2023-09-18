@@ -1,14 +1,7 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-<<<<<<< HEAD
-import { UserDto } from 'src/users/dto/create-user.dto';
-import { CreateUsersService } from 'src/users/service/users-create.service';
-import { SearchUserService } from 'src/users/service/users-search.service';
-
-=======
 import { UserDto } from 'src/domain/users/dto/create-user.dto';
 import { CreateUsersService } from 'src/use-cases/users/users-create.use-case';
 import { SearchUserService } from 'src/use-cases/users/users-search.use-case';
->>>>>>> 3d7491caedc868f407ec11ffdbdbd1603baba1a5
 import { v4 } from 'uuid';
 
 @Controller('users')
