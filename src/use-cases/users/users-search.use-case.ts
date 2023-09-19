@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Inject, Injectable, UseInterceptors } from '@nestjs/common';
-import {  } from 'src/common/baseResponse/globalResponse';
-import { TYPEORM_TOKENS } from 'src/database/repositoris/tokens';
-import { UserRepository } from 'src/database/repositoris/users/user.repository';
+import { TYPEORM_TOKENS } from '../../database/repositoris/tokens'
+import { UserRepository } from '../../database/repositoris/users/user.repository';
+
 
 
 
@@ -14,7 +14,7 @@ export class SearchUserService {
      private readonly userRepository: UserRepository,
   ) { }
 
-  async searchUser() {
+  async searchUser(){
     console.log('***************************************')
     return await this.userRepository.search();
   }

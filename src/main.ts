@@ -2,7 +2,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
+import { INestApplication,  ValidationPipe } from '@nestjs/common';
 import dataSource from './database/config/database-cli';
 
 dataSource.initialize().then(()=>{console.log('Database connected')})
