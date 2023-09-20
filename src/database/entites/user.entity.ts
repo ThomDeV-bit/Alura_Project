@@ -1,3 +1,5 @@
+import { UserDto } from 'src/domain/users/dto/create-user.dto';
+import { IUserResponse } from 'src/domain/users/dto/user-response.dto';
 import { IUser } from 'src/domain/users/user.domain';
 import { EntitySchema } from 'typeorm';
 export const UserEntity = new EntitySchema<IUser>({
@@ -29,5 +31,6 @@ export const UserEntity = new EntitySchema<IUser>({
 });
 
 export interface IUserRepoisotry {
-  search(): Promise<IUser[]>;
+  search(): Promise<IUserResponse[]>;
+  execute(param: UserDto): Promise<IUser>;
 }
