@@ -1,19 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { IUserRepoisotry, UserEntity } from '../../entites/user.entity';
+import { IUserRepository, UserEntity } from '../../entites/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserDto } from 'src/domain/users/dto/create-user.dto';
 import { IUser } from 'src/domain/users/user.domain';
-import { IUserResponse } from 'src/domain/users/dto/user-response.dto';
 
 @Injectable()
-export class UserRepository implements IUserRepoisotry {
+export class UserRepository implements IUserRepository {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<IUser>,
   ) {}
 
-  search(): Promise<IUserResponse[]> {
+  search(): Promise<IUser[]> {
     return this.userRepository.find();
   }
 

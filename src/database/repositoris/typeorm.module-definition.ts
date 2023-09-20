@@ -1,8 +1,8 @@
 import { ConfigurableModuleBuilder, Type } from '@nestjs/common';
-import { IUserRepoisotry } from '../entites/user.entity';
+import { IUserRepository } from '../entites/user.entity';
 
 interface ModuleOptions {
-  userRepository: Type<IUserRepoisotry>;
+  userRepository: Type<IUserRepository>;
 }
 
 export const { ConfigurableModuleClass, MODULE_OPTIONS_TOKEN, OPTIONS_TYPE } =

@@ -17,6 +17,10 @@ export class CreateUsersService {
     dto.id = v4();
     dto.password = await hash(dto.password, 10);
     const user = await this.userRepository.execute(dto);
+    console.log(
+      '>>>>>>>>>>>>>>>>>>>>>>>>>>>CRIAR USUARIO<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<',
+    );
+
     return user;
   }
 }

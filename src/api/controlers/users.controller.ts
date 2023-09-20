@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UserDto } from 'src/domain/users/dto/create-user.dto';
-import { IUserResponse } from 'src/domain/users/dto/user-response.dto';
+import { IUser } from 'src/domain/users/user.domain';
 import { CreateUsersService } from 'src/use-cases/users/users-create.use-case';
 import { SearchUserService } from 'src/use-cases/users/users-search.use-case';
 
@@ -12,7 +12,7 @@ export class UsersController {
   ) {}
 
   @Get('search')
-  async findAll(): Promise<IUserResponse[]> {
+  async findAll(): Promise<IUser[]> {
     return this.searchUserService.searchUser();
   }
 

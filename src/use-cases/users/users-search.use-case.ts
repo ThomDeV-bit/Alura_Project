@@ -15,6 +15,7 @@ export class SearchUserService {
   ) { }
 
   async searchUser(){
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>CONSULTAR USUARIOS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
     return await this.userRepository.search();
   }
 }

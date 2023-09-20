@@ -11,6 +11,7 @@ export const dataSourceOptions: DataSourceOptions = {
   database: 'loja',
   entities: [UserEntity],
   migrations: [],
+  logging: 'all',
 };
 
 const dataSource = new DataSource(dataSourceOptions);
