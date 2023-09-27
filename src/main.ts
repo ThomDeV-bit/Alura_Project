@@ -1,27 +1,34 @@
-/* eslint-disable prettier/prettier */
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 import dataSource from './database/config/database-cli';
-import { Logger } from 'nestjs-pino';
+import { LoggerErrorInterceptor } from 'nestjs-pino';
 
-dataSource.initialize().then(() => { console.log('Database connected') })
+dataSource.initialize().then(() => {
+  console.log('Database connected');
+});
 
 async function bootstrap() {
   const app = await NestFactory.create<INestApplication>(AppModule.register(), {
-    bufferLogs: true
+    bufferLogs: true,
   });
-  app.useLogger(app.get(Logger))
   app.flushLogs();
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
       whitelist: true,
-      forbidNonWhitelisted: true
+    }),
+  );
+  app.useGlobalInterceptors(
+    new ClassSerializerInterceptor(app.get(Reflector)),
+    new LoggerErrorInterceptor(),
+  );
 
-    })
-  )
   const config = new DocumentBuilder()
     .setTitle('Store')
     .setDescription('')
@@ -32,7 +39,7 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
 
   await app.listen(3000, () => console.log('server running'));
-  const url = await app.getUrl()
+  const url = await app.getUrl();
   console.log(`Swagger application is running on: ${url}/swagger`);
 }
 bootstrap();

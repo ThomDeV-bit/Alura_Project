@@ -1,6 +1,5 @@
 import { DynamicModule } from '@nestjs/common';
 import { TYPEORM_TOKENS } from './tokens';
-
 import {
   ConfigurableModuleClass,
   OPTIONS_TYPE,

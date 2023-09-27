@@ -1,11 +1,16 @@
-import { Inject, Injectable, UseInterceptors } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  UseInterceptors,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { TYPEORM_TOKENS } from '../../database/repositoris/tokens';
 import { UserRepository } from '../../database/repositoris/users/user.repository';
 import { UserDto } from '../../domain/users/dto/create-user.dto';
 import { v4 } from 'uuid';
 import { hash } from 'bcrypt';
+import { pinoMock } from 'src/config/logger/logger-config';
 
-@UseInterceptors()
 @Injectable()
 export class CreateUsersService {
   constructor(
@@ -14,13 +19,19 @@ export class CreateUsersService {
   ) {}
 
   async createUser(dto: UserDto) {
-    dto.id = v4();
-    dto.password = await hash(dto.password, 10);
-    const user = await this.userRepository.execute(dto);
-    console.log(
-      '>>>>>>>>>>>>>>>>>>>>>>>>>>>CRIAR USUARIO<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<',
-    );
+    try {
+      pinoMock.info(CreateUsersService.name);
 
-    return user;
+      dto.id = v4();
+
+      dto.password = await hash(dto.password, 10);
+
+      const user = await this.userRepository.execute(dto);
+
+      return user;
+    } catch (error) {
+      console.log(error);
+      throw new UnprocessableEntityException(error, 'Impossivel criar usuario');
+    }
   }
 }
