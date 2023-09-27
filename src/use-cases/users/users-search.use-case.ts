@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Inject, Injectable, UseInterceptors, BadRequestException, UnprocessableEntityException } from '@nestjs/common';
+import { Inject, Injectable, UseInterceptors, UnprocessableEntityException } from '@nestjs/common';
 import { TYPEORM_TOKENS } from '../../database/repositoris/tokens'
 import { UserRepository } from '../../database/repositoris/users/user.repository';
 import { pinoMock } from 'src/config/logger/logger-config';
