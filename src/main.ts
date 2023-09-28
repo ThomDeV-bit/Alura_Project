@@ -13,14 +13,14 @@ async function bootstrap() {
     const app = await NestFactory.create<INestApplication>(AppModule.register(), {
         bufferLogs: true,
     });
-    app.flushLogs();
+    app.flushLogs();    
+    app.use
     app.useGlobalPipes(
         new ValidationPipe({
-            transform: true,
-            whitelist: true,
+            validationError: { target : true, value : true},
+            transform: true
         }),
     );
-    app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)), new LoggerErrorInterceptor());
 
     const config = new DocumentBuilder()
         .setTitle('Store')

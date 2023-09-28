@@ -16,7 +16,7 @@ export class CreateUsersService {
   constructor(
     @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
     private readonly userRepository: UserRepository,
-  ) {}
+  ) { }
 
   async createUser(dto: UserDto) {
     try {
@@ -31,7 +31,7 @@ export class CreateUsersService {
       return user;
     } catch (error) {
       console.log(error);
-      throw new UnprocessableEntityException(error, 'Impossivel criar usuario');
+      throw new UnprocessableEntityException(error, `Impossivel criar usuario`);
     }
   }
 }

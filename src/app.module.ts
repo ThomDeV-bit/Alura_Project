@@ -7,25 +7,19 @@ import { UseCasesModule } from './use-cases/use-cases.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { LoggerModule } from 'nestjs-pino';
 import { pino } from 'pino';
+import { pid } from 'process';
+import { pinoMock } from './config/logger/logger-config';
 
 @Module({})
 export class AppModule {
     static register(): DynamicModule {
         const imports = [
-            ConfigModule.forRoot({
-                isGlobal: true,
-            }),
             ScheduleModule.forRoot(),
             LoggerModule.forRoot({
                 pinoHttp: {
-                    stream: pino.destination(`./console_node_${process.env.PORT}.log`),
-                    crlf: true,
-                    customProps: (req, res) => ({
-                        res,
-                        req,
-                        dateTime: new Date(),
-                    }),
-                },
+                    logger: pinoMock,
+                    stream: pino.destination('./console_node.log'),
+                }
             }),
             TypeormModule.register(RepositoryModule.register()),
             ApiModule.register({

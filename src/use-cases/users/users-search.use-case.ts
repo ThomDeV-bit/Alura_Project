@@ -7,7 +7,6 @@ import { pinoMock } from 'src/config/logger/logger-config';
 
 
 
-@UseInterceptors()
 @Injectable()
 export class SearchUserService {
   constructor(

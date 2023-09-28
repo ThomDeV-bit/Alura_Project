@@ -15,7 +15,7 @@ export class UserDto {
     @IsString()
     name: string;
 
-    @ApiProperty({ name: 'email' })
+    @ApiProperty({ name: 'email'})
     @Expose({ name: 'email' })
     @IsEmail()
     mail: string;
