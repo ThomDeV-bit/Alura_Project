@@ -7,18 +7,24 @@ import { IUser } from 'src/domain/users/user.domain';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<IUser>,
-  ) {}
+    constructor(
+        @InjectRepository(UserEntity)
+        private readonly userRepository: Repository<IUser>,
+    ) {}
 
-  search(): Promise<IUser[]> {
-    return this.userRepository.find();
-  }
+    search(): Promise<IUser[]> {
+        return this.userRepository.find();
+    }
 
-  execute(dto: UserDto): Promise<IUser> {
-    const user = this.userRepository.create(dto);
-    const save = this.userRepository.save(user);
-    return save;
-  }
+    execute(dto: UserDto): Promise<IUser> {
+        const user = this.userRepository.create(dto);
+        const save = this.userRepository.save(user);
+        return save;
+    }
+
+    searchBy(userId: string): Promise<IUser> {
+        return this.userRepository.findOneBy({
+            id: userId,
+        });
+    }
 }

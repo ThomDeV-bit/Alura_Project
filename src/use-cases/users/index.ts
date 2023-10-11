@@ -1,4 +1,4 @@
-import { CreateUsersService } from './users-create.use-case';
-import { SearchUserService } from './users-search.use-case';
+import { CreateUsersService } from './create';
+import { SearchUserService } from './search';
 
 export const USERS_USE_CASES = [SearchUserService, CreateUsersService];

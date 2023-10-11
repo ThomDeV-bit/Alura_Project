@@ -1,9 +1,8 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ClassSerializerInterceptor, INestApplication, ValidationPipe } from '@nestjs/common';
 import dataSource from './database/config/database-cli';
-import { LoggerErrorInterceptor } from 'nestjs-pino';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 
 dataSource.initialize().then(() => {
     console.log('Database connected');
@@ -13,12 +12,10 @@ async function bootstrap() {
     const app = await NestFactory.create<INestApplication>(AppModule.register(), {
         bufferLogs: true,
     });
-    app.flushLogs();    
-    app.use
+    app.flushLogs();
     app.useGlobalPipes(
         new ValidationPipe({
-            validationError: { target : true, value : true},
-            transform: true
+            transform: true,
         }),
     );
 

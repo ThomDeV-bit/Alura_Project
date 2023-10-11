@@ -1,60 +1,50 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Response } from 'express';
 import { IGlobalResponse } from './global-response';
 
 @Catch()
 export class GlobalExceptionResponse implements ExceptionFilter {
-  constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
+    constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
-  catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
+    catch(exception: HttpException, host: ArgumentsHost) {
+        const ctx = host.switchToHttp();
 
-    const { httpAdapter } = this.httpAdapterHost;
+        const { httpAdapter } = this.httpAdapterHost;
 
-    const response = ctx.getResponse<Response>();
+        const response = ctx.getResponse<Response>();
 
-    const messages =
-      exception instanceof HttpException &&
-      (exception.getResponse() as any).message;
+        const STATUS = exception.getStatus() > 299 ? `${exception.getStatus()}` : 'SUCESSO';
 
-    const STATUS =
-      exception.getStatus() > 299 ? `${exception.getStatus()}` : 'SUCESSO';
+        let MENSAGEM = response.req.method;
+        switch (MENSAGEM) {
+            case 'GET':
+                MENSAGEM = 'Erro ao Consultar';
 
-    let MENSAGEM = response.req.method;
-    switch (MENSAGEM) {
-      case 'GET':
-        MENSAGEM = 'Erro ao Consultar';
+                break;
+            case 'POST':
+                MENSAGEM = 'Erro ao Executar';
 
-        break;
-      case 'POST':
-        MENSAGEM = 'Erro ao Executar';
+                break;
+            case 'DELETE':
+                MENSAGEM = 'Erro ao Deletar';
 
-        break;
-      case 'DELETE':
-        MENSAGEM = 'Erro ao Deletar';
+                break;
+            case 'PUT':
+                MENSAGEM = 'Erro ao Alterar';
 
-        break;
-      case 'PUT':
-        MENSAGEM = 'Erro ao Alterar';
+                break;
 
-        break;
+            default:
+                'Nenhuma requisição realizada';
+                break;
+        }
+        const responseBody: IGlobalResponse<any> = {
+            MENSAGEM,
+            STATUS,
+            RESPOSTA: [response.req.url],
+        };
 
-      default:
-        'Nenhuma requisição realizada';
-        break;
+        httpAdapter.reply(ctx.getResponse(), responseBody, exception.getStatus());
     }
-    const responseBody: IGlobalResponse<any> = {
-      MENSAGEM,
-      STATUS,
-      RESPOSTA: messages,
-    };
-
-    httpAdapter.reply(ctx.getResponse(), responseBody, exception.getStatus());
-  }
 }

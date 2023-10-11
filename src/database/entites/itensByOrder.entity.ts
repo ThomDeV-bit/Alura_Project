@@ -1,34 +1,29 @@
-import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { UUID } from "typeorm/driver/mongodb/bson.typings";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+import { OrderEntity } from './order.entity';
 
+@Entity({ name: 'itens_by_order' })
+export class ItensByOrderEntity {
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
+    @Column()
+    quantidade: number;
 
+    @Column()
+    precoVenda: number;
 
+    @CreateDateColumn()
+    created_at: Timestamp;
 
-@Entity({name: 'itens_by_order'})
+    @CreateDateColumn()
+    updated_at: Timestamp;
 
-export class ItensByOrder {
+    @ManyToOne(() => OrderEntity, (order) => order.itensByOrder, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+    })
+    order: OrderEntity;
 
-@PrimaryGeneratedColumn('uuid')
-id: string
-
-@Column({type :'uuid'})
-pedido : string
-
-@Column({type : 'uuid'})
-produto : string
-
-@Column()
-quantidade : number
-
-@Column()
-precoVenda: number
-
-
-
-
-
-
-
+    // @OneToMany(() => ProductEntity, (product) => product.productOrder)
+    // products: ProductEntity[];
 }

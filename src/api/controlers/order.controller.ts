@@ -1,42 +1,33 @@
-// import {
-//   Controller,
-//   Get,
-//   Post,
-//   Body,
-//   Patch,
-//   Param,
-//   Delete,
-// } from '@nestjs/common';
-// import { OrderService } from './order.service';
-// import { CreateOrderDto } from './dto/create-order.dto';
-// import { UpdateOrderDto } from './dto/update-order.dto';
+import { Controller, Post, Body, Param, Get } from '@nestjs/common';
+import { CreateOrderDto } from 'src/domain/orders/dto/create-order.dto';
+import { OrderService } from 'src/use-cases/orders/create';
 
-// @Controller('order')
-// export class OrderController {
-//   constructor(private readonly orderService: OrderService) {}
+@Controller('order')
+export class OrderController {
+    constructor(private readonly orderService: OrderService) {}
 
-//   @Post()
-//   create(@Body() createOrderDto: CreateOrderDto) {
-//     return this.orderService.create(createOrderDto);
-//   }
+    @Post('create/:id')
+    create(@Param('id') userId: string, @Body() order: CreateOrderDto) {
+        return this.orderService.create(userId, order);
+    }
 
-//   @Get()
-//   findAll() {
-//     return this.orderService.findAll();
-//   }
+    @Get('search/:id')
+    findAll(@Param('id') userId: string) {
+        return this.orderService.search(userId);
+    }
 
-//   @Get(':id')
-//   findOne(@Param('id') id: string) {
-//     return this.orderService.findOne(+id);
-//   }
+    // @Get(':id')
+    // findOne(@Param('id') id: string) {
+    //     return this.orderService.findOne(+id);
+    // }
 
-//   @Patch(':id')
-//   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-//     return this.orderService.update(+id, updateOrderDto);
-//   }
+    // @Patch(':id')
+    // update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    //     return this.orderService.update(+id, updateOrderDto);
+    // }
 
-//   @Delete(':id')
-//   remove(@Param('id') id: string) {
-//     return this.orderService.remove(+id);
-//   }
-// }
+    // @Delete(':id')
+    // remove(@Param('id') id: string) {
+    //     return this.orderService.remove(+id);
+    // }
+}
