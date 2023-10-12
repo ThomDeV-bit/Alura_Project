@@ -24,7 +24,7 @@ export class OrderRepository implements IOrderRepository {
         if (user) {
             const orders = new Order(order);
             orders.id = v4();
-            orders.status = StatusPedido.CANCELADO;
+            orders.status = order.status;
             orders.usuario = user;
 
             const itensPedido = orders.itensByOrder.map((item) => {
@@ -43,7 +43,7 @@ export class OrderRepository implements IOrderRepository {
             const createOrder = await this.orderRepository.save(orders);
             return createOrder;
         } else {
-            throw new BadRequestException();
+            throw new BadRequestException('erro');
         }
     }
 

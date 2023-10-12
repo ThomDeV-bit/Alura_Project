@@ -1,9 +1,10 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, Timestamp } from 'typeorm';
 import { OrderEntity } from './order.entity';
+import { ProductEntity } from './product.entity';
 
 @Entity({ name: 'itens_by_order' })
 export class ItensByOrderEntity {
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryColumn('uuid')
     id: string;
 
     @Column()
@@ -22,8 +23,8 @@ export class ItensByOrderEntity {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
     })
-    order: OrderEntity;
+    order: OrderEntity
 
-    // @OneToMany(() => ProductEntity, (product) => product.productOrder)
-    // products: ProductEntity[];
+    @OneToMany(() => ProductEntity, (product) => product.productsByOrder)
+    products: ProductEntity[];
 }

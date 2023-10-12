@@ -4,6 +4,10 @@ import { UserEntity } from '../entites/user.entity';
 import { OrderEntity } from '../entites/order.entity';
 import { ItensByOrderEntity } from '../entites/itensByOrder.entity';
 import { Migrations1697052902505 } from '../migration/1697052902505-migrations';
+import { CharacteristicsEntity } from '../entites/characteristics-product.entity';
+import { ImageProductEntity } from '../entites/image-product.entity';
+import { CategorieEntity } from '../entites/categories.entity';
+import { ProductEntity } from '../entites/product.entity';
 
 @Injectable()
 export class DatabaseConfig implements TypeOrmOptionsFactory {
@@ -15,7 +19,10 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
             username: 'root',
             password: 'root123',
             database: 'loja',
-            entities: [UserEntity, OrderEntity, ItensByOrderEntity],
+            entities: [ 
+                UserEntity, OrderEntity, ItensByOrderEntity,
+                CharacteristicsEntity,CategorieEntity,
+                ImageProductEntity,ProductEntity],
             migrations: [Migrations1697052902505],
         };
     }

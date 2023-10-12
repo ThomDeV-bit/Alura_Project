@@ -1,15 +1,19 @@
 import { type } from "os";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { ProductEntity } from "./product.entity";
 
 
 @Entity({name:'categories'})
 
-export class ImageEntity {
+export class CategorieEntity {
 
-@PrimaryGeneratedColumn('increment')
-id : number
+@PrimaryColumn({name: 'id'})
+id : string
 
 @Column({name:'categorie'})
 categorie : string
+
+@OneToOne(()=> ProductEntity, (produto)=> produto.categoria)
+produto : ProductEntity
 
 }

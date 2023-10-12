@@ -6,10 +6,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from '../config/database-cli';
 import { OrderEntity } from '../entites/order.entity';
 import { ItensByOrderEntity } from '../entites/itensByOrder.entity';
+import { CharacteristicsEntity } from '../entites/characteristics-product.entity';
+import { CategorieEntity } from '../entites/categories.entity';
+import { ImageProductEntity } from '../entites/image-product.entity';
+import { ProductEntity } from '../entites/product.entity';
 
 export class TypeormModule extends ConfigurableModuleClass {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
-        const schemaEntities = [UserEntity, OrderEntity, ItensByOrderEntity];
+        const schemaEntities = [
+            UserEntity, OrderEntity, ImageProductEntity, ItensByOrderEntity,
+            ItensByOrderEntity, CharacteristicsEntity,
+            CategorieEntity,ProductEntity];
         const config = dataSourceOptions;
         return {
             module: TypeormModule,

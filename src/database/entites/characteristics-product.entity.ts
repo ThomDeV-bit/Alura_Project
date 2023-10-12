@@ -1,13 +1,17 @@
 import {
     Entity,
     Column,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn,
+    OneToMany,
+    ManyToOne,
+    PrimaryColumn
 } from 'typeorm';
+import { ProductEntity } from './product.entity';
 
 @Entity("product_characteristics")
-export class ProductCharacteristicsEntity {
+export class CharacteristicsEntity {
 
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryColumn({name : 'id'})
     id: string
 
     @Column({ name: "nome", length: 100, nullable: false })
@@ -15,4 +19,8 @@ export class ProductCharacteristicsEntity {
 
     @Column({ name: "descricao", length: 100, nullable: false })
     descricao: string;
+
+    @ManyToOne(()=> ProductEntity, (produto)=> produto.characteristics)
+    produto : ProductEntity
+
 }

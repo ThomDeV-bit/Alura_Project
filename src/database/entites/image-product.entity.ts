@@ -1,10 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { ProductEntity } from './product.entity';
+import { Blob } from 'buffer';
 
 @Entity('product_image')
-export class ImageProduct {
-    @PrimaryGeneratedColumn('uuid')
+export class ImageProductEntity {
+    @PrimaryColumn({name:'id'})
     id: string;
 
     @Column({ name: 'image', nullable: false, type: 'blob' })
-    nome: Blob;
+    image: Blob;
+
+    @ManyToOne(()=> ProductEntity, (produto) => produto.imageProduto)
+    imageProduto : ProductEntity;
 }
