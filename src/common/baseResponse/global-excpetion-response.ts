@@ -42,9 +42,9 @@ export class GlobalExceptionResponse implements ExceptionFilter {
         const responseBody: IGlobalResponse<any> = {
             MENSAGEM,
             STATUS,
-            RESPOSTA: [response.req.url],
+            RESPOSTA: [response.req.body],
         };
 
-        httpAdapter.reply(ctx.getResponse(), responseBody, response.req.body);
+        httpAdapter.reply(ctx.getResponse(), responseBody, response.req.statusCode);
     }
 }
