@@ -32,7 +32,7 @@ export class TypeormModule extends ConfigurableModuleClass {
                     },
                 }),
             ],
-            exports: [TYPEORM_TOKENS.USER_REPOSITORY, TYPEORM_TOKENS.ORDER_REPOSITORY],
+            exports: [TYPEORM_TOKENS.USER_REPOSITORY, TYPEORM_TOKENS.ORDER_REPOSITORY, TYPEORM_TOKENS.PRODUCT_REPOSITORY],
             providers: [
                 {
                     provide: TYPEORM_TOKENS.USER_REPOSITORY,
@@ -42,6 +42,10 @@ export class TypeormModule extends ConfigurableModuleClass {
                     provide: TYPEORM_TOKENS.ORDER_REPOSITORY,
                     useClass: options.orderRepository,
                 },
+                {
+                    provide : TYPEORM_TOKENS.PRODUCT_REPOSITORY,
+                    useValue : options.productRepository
+                }
             ],
         };
     }

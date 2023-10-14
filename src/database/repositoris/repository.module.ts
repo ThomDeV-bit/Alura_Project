@@ -1,4 +1,5 @@
 import { OrderRepository } from './orders/order.repository';
+import { ProductRepository } from './products/product.repository';
 import { UserRepository } from './users/user.repository';
 
 export class RepositoryModule {
@@ -6,6 +7,7 @@ export class RepositoryModule {
         return {
             userRepository: UserRepository,
             orderRepository: OrderRepository,
+            productRepository :ProductRepository
         };
     }
 }

@@ -25,6 +25,6 @@ export class ItensByOrderEntity {
     })
     order: OrderEntity
 
-    @OneToMany(() => ProductEntity, (product) => product.productsByOrder)
-    products: ProductEntity[];
+    @ManyToOne(() => ProductEntity, (product) => product.productsByOrder)
+    products: ProductEntity;
 }

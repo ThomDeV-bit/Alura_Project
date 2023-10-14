@@ -1,5 +1,5 @@
 import { type } from "os";
-import { Column, Entity, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { ProductEntity } from "./product.entity";
 
 
@@ -13,7 +13,7 @@ id : string
 @Column({name:'categorie'})
 categorie : string
 
-@OneToOne(()=> ProductEntity, (produto)=> produto.categoria)
+@ManyToOne(()=> ProductEntity, (produto)=> produto.categoria)
 produto : ProductEntity
 
 }

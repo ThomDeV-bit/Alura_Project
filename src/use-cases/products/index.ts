@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
+import { ProductUseCase } from "./search";
 
-@Injectable()
-export class ProductService {}
+export const PRODUCT_USE_CASE = [ProductUseCase]

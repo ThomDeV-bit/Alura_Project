@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { CategorieEntity } from './categories.entity';
 import { ItensByOrderEntity } from './itensByOrder.entity';
 import { ImageProductEntity } from './image-product.entity';
@@ -6,7 +6,7 @@ import { CharacteristicsEntity } from './characteristics-product.entity';
 
 @Entity({ name: 'product' })
 export class ProductEntity {
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryColumn({name: 'id'})
     id: string;
 
     @Column({ name: 'usuario_id', length: 100, nullable: false })
@@ -31,5 +31,8 @@ export class ProductEntity {
     characteristics: CharacteristicsEntity[]
 
     @ManyToOne(() => ItensByOrderEntity, (order) => order.products)
-    productsByOrder: ItensByOrderEntity;
+    productsByOrder: ItensByOrderEntity[];
 }
+ export interface IProductRepository  {
+    getAll () : Promise<ProductEntity[]>
+ }

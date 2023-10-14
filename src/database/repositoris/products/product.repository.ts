@@ -1,12 +1,18 @@
-// import { DataSource, Repository, TypedEventEmitter } from "typeorm";
-// import { Injectable } from "@nestjs/common";
-// import { ProductEntity } from "../database/entites/product.entity";
+import { DataSource, Repository, TypedEventEmitter } from "typeorm";
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { IProductRepository, ProductEntity } from "src/database/entites/product.entity";
 
 
 
-// @Injectable()
-// export class ProductRepository extends Repository <ProductEntity>{
-//     constructor(public  dataSource : DataSource){
-//         super(ProductEntity, dataSource.createEntityManager());
-// }
-// }
+@Injectable()
+export class ProductRepository implements IProductRepository {
+    constructor(
+        @InjectRepository(ProductEntity)
+        private readonly productRepository : Repository<ProductEntity>
+        ){}
+    async getAll(): Promise<ProductEntity[]> {
+        return await this.productRepository.find()
+        }
+}
+

@@ -14,7 +14,7 @@ export class GlobalExceptionResponse implements ExceptionFilter {
 
         const response = ctx.getResponse<Response>();
 
-        const STATUS = exception.getStatus() > 299 ? `${exception.getStatus()}` : 'SUCESSO';
+        const STATUS = response.req.statusCode > 299 ? 'ERRO' : 'SUCESSO';
 
         let MENSAGEM = response.req.method;
         switch (MENSAGEM) {
@@ -45,6 +45,6 @@ export class GlobalExceptionResponse implements ExceptionFilter {
             RESPOSTA: [response.req.url],
         };
 
-        httpAdapter.reply(ctx.getResponse(), responseBody, exception.getStatus());
+        httpAdapter.reply(ctx.getResponse(), responseBody, response.req.body);
     }
 }
