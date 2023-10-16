@@ -6,7 +6,7 @@ import { CharacteristicsEntity } from '../entites/characteristics-product.entity
 import { ImageProductEntity } from '../entites/image-product.entity';
 import { ProductEntity } from '../entites/product.entity';
 import { CategorieEntity } from '../entites/categories.entity';
-import { Migrations1697240210375 } from '../1697240210375-migrations';
+import { Migrations1697486628487 } from '../migrations/1697486628487-migrations';
 
 export const dataSourceOptions: DataSourceOptions = {
     type: 'mysql',
@@ -15,14 +15,14 @@ export const dataSourceOptions: DataSourceOptions = {
     username: 'root',
     password: 'root123',
     database: 'loja',
+    cache : true,
     entities: [
         ImageProductEntity,
         UserEntity, OrderEntity, ItensByOrderEntity,
-        CharacteristicsEntity, CategorieEntity,
-        ProductEntity
+        CharacteristicsEntity, CategorieEntity, ProductEntity
     ],
-            
-    migrations: [Migrations1697240210375],
+
+    migrations: [Migrations1697486628487],
     logging: 'all',
 };
 
