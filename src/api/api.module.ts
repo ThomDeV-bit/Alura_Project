@@ -11,7 +11,7 @@ export class ApiModule extends ConfigurableModuleClass {
     static register(options: typeof OPTIONS_TYPE): DynamicModule {
         return {
             module: ApiModule,
-            controllers: [UsersController, OrderController,ProductController],
+            controllers: [UsersController, OrderController, ProductController],
             global: true,
             imports: [options.useCasesModule],
             providers: [

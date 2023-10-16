@@ -17,6 +17,7 @@ export class TypeormModule extends ConfigurableModuleClass {
             UserEntity, OrderEntity, ImageProductEntity, ItensByOrderEntity,
             ItensByOrderEntity, CharacteristicsEntity,
             CategorieEntity,ProductEntity];
+
         const config = dataSourceOptions;
         return {
             module: TypeormModule,
@@ -32,7 +33,7 @@ export class TypeormModule extends ConfigurableModuleClass {
                     },
                 }),
             ],
-            exports: [TYPEORM_TOKENS.USER_REPOSITORY, TYPEORM_TOKENS.ORDER_REPOSITORY, TYPEORM_TOKENS.PRODUCT_REPOSITORY],
+            exports: [TYPEORM_TOKENS.USER_REPOSITORY, TYPEORM_TOKENS.ORDER_REPOSITORY,TYPEORM_TOKENS.PRODUCTS_REPO],
             providers: [
                 {
                     provide: TYPEORM_TOKENS.USER_REPOSITORY,
@@ -43,9 +44,10 @@ export class TypeormModule extends ConfigurableModuleClass {
                     useClass: options.orderRepository,
                 },
                 {
-                    provide : TYPEORM_TOKENS.PRODUCT_REPOSITORY,
-                    useValue : options.productRepository
+                    provide : TYPEORM_TOKENS.PRODUCTS_REPO,
+                    useClass : options.productRepo
                 }
+
             ],
         };
     }

@@ -4,26 +4,28 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserDto } from 'src/domain/users/dto/create-user.dto';
 import { IUser } from 'src/domain/users/user.domain';
+import { TYPEORM_TOKENS } from '../tokens';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
     constructor(
         @InjectRepository(UserEntity)
-        private readonly userRepository: Repository<IUser>,
+        private readonly userRepository: Repository<UserEntity>,
+
     ) {}
 
-    search(): Promise<IUser[]> {
-        return this.userRepository.find();
+    async search(): Promise<UserEntity[]> {
+        return await this.userRepository.find();
     }
 
-    execute(dto: UserDto): Promise<IUser> {
+    async execute(dto: UserDto): Promise<UserEntity> {
         const user = this.userRepository.create(dto);
-        const save = this.userRepository.save(user);
+        const save = await this.userRepository.save(user);
         return save;
     }
 
-    searchBy(userId: string): Promise<IUser> {
-        return this.userRepository.findOneBy({
+    async searchBy(userId: string): Promise<UserEntity> {
+        return await this.userRepository.findOneBy({
             id: userId,
         });
     }

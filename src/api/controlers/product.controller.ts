@@ -1,13 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
-import { ProductEntity } from 'src/database/entites/product.entity';
-import { ProductUseCase } from 'src/use-cases/products/search';
+import { Controller, Get } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
+import { pinoMock } from "src/config/logger/logger-config";
+import { ProductUseCase } from "src/use-cases/product/product-search-use-case";
 
 @Controller('product')
+@ApiTags('product')
+
 export class ProductController {
-  constructor(private readonly productUseCase: ProductUseCase) {}
-  
-  @Get('search')
-  async get(): Promise<ProductEntity[]>{
-    return await this.productUseCase.getAll()
-  }
+    constructor(private readonly productUseCase: ProductUseCase) { }
+
+    @Get('find')
+    async find() {
+        pinoMock.logger.info(ProductController.name)
+        return await this.productUseCase.find()
+    }
 }

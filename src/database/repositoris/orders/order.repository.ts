@@ -10,10 +10,13 @@ import { StatusPedido } from 'src/common/enum/statuspedido.enum';
 import { v4 } from 'uuid';
 import { UserDto } from 'src/domain/users/dto/create-user.dto';
 import { ItensByOrderEntity } from 'src/database/entites/itensByOrder.entity';
+import { ProductRepository } from '../product/product.repository';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
     constructor(
+        @Inject(TYPEORM_TOKENS.PRODUCTS_REPO)
+        private readonly productRepository: ProductRepository,
         @Inject(TYPEORM_TOKENS.USER_REPOSITORY)
         private readonly userRepository: UserRepository,
         @InjectRepository(OrderEntity)
@@ -27,10 +30,18 @@ export class OrderRepository implements IOrderRepository {
             orders.status = order.status;
             orders.usuario = user;
 
+            const productIds = order.itensByOrder.map((item)=> item.id)
+            const productValidate = await this.productRepository.findProductById(productIds)
+
             const itensPedido = orders.itensByOrder.map((item) => {
+                const productExists = productValidate.find((product)=> product.id === item.id)
                 const itemPedidoEntity = new ItensByOrderEntity();
-                itemPedidoEntity.precoVenda = item.precoVenda;
+                console.log(productExists,"*************************************")
+                itemPedidoEntity.id = v4()
+                itemPedidoEntity.products = productExists
+                itemPedidoEntity.precoVenda = productExists.valor;
                 itemPedidoEntity.quantidade = item.quantidade;
+                itemPedidoEntity.products.quantidade -= item.quantidade
                 return itemPedidoEntity;
             });
             const total = itensPedido.reduce((total, item) => {

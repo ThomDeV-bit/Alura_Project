@@ -25,6 +25,8 @@ export class ItensByOrderEntity {
     })
     order: OrderEntity
 
-    @ManyToOne(() => ProductEntity, (product) => product.productsByOrder)
+    @ManyToOne(() => ProductEntity, (product) => product.productsByOrder,{
+        cascade : ['update']
+    })
     products: ProductEntity;
 }
