@@ -18,7 +18,7 @@ export class OrderRepository implements IOrderRepository {
         private readonly userRepository: UserRepository,
         @InjectRepository(OrderEntity)
         private readonly orderRepository: Repository<OrderEntity>,
-    ) {}
+    ) { }
     async create(userId: string, order: CreateOrderDto): Promise<Order> {
         const user = await this.userRepository.searchBy(userId);
         if (user) {

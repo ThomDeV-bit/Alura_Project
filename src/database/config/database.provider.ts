@@ -19,11 +19,11 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
             username: 'root',
             password: 'root123',
             database: 'loja',
-            entities: [ 
+            entities: [
                 UserEntity, OrderEntity, ItensByOrderEntity,
-                CharacteristicsEntity,CategorieEntity,
-                ImageProductEntity,ProductEntity],
-            migrations: [Migrations1697240210375 ],
+                CharacteristicsEntity, CategorieEntity,
+                ImageProductEntity, ProductEntity],
+            migrations: [Migrations1697240210375],
         };
     }
 }
