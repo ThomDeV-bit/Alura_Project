@@ -1,4 +1,4 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { pinoMock } from "src/config/logger/logger-config";
 import { ProductUseCase } from "src/use-cases/product/product-search-use-case";
@@ -9,9 +9,9 @@ import { ProductUseCase } from "src/use-cases/product/product-search-use-case";
 export class ProductController {
     constructor(private readonly productUseCase: ProductUseCase) { }
 
-    @Get('find')
-    async find() {
+    @Get('find/:id')
+    async find(@Param('id') param : string) {
         pinoMock.logger.info(ProductController.name)
-        return await this.productUseCase.find()
+        return await this.productUseCase.find(param)
     }
 }

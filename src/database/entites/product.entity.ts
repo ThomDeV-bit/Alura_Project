@@ -31,5 +31,5 @@ export class ProductEntity {
     productsByOrder: ItensByOrderEntity[];
 }
  export interface IProductRepo  {
-    search ();
+    search (param : string);
  }

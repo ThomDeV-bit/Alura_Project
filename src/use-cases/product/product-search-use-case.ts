@@ -10,8 +10,8 @@ export class ProductUseCase {
         private readonly productRepository: ProductRepository
     ) { }
 
-    async find() {
-        return await this.productRepository.search()
+    async find(param : string) {
+        return await this.productRepository.search(param)
     }
 
     async findProductById(productId : string[]): Promise<ProductEntity[]>{
